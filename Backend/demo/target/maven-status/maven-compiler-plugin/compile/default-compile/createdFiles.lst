@@ -1,0 +1,17 @@
+com\example\CIRS\config\DatabaseConfig.class
+com\example\CIRS\controller\UploadController.class
+com\example\CIRS\service\ReportService.class
+com\example\CIRS\model\User.class
+com\example\CIRS\controller\ImageController.class
+com\example\CIRS\model\Role.class
+com\example\CIRS\service\GridFsService.class
+com\example\CIRS\config\MongoConfig.class
+com\example\CIRS\controller\ReportController.class
+com\example\CIRS\repository\ReportRepository.class
+com\example\CIRS\repository\UserRepository.class
+com\example\CIRS\model\mongodb\MongoUser.class
+com\example\CIRS\model\Report.class
+com\example\CIRS\CirsApplication.class
+com\example\CIRS\config\MongoProperties.class
+com\example\CIRS\model\ReportStatus.class
+com\example\CIRS\model\mongodb\MongoReport.class
