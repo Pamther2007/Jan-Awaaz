@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CivicConnect | Sign Up</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #e0f2f1, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px 50px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 380px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: #00796b;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #004d40;
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #00796b;
+    }
+
+    button {
+      width: 100%;
+      background: #00796b;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #005a4f;
+    }
+
+    .link {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .link a {
+      color: #00796b;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">CivicConnect</div>
+    <h2>Create a New Account</h2>
+
+    <form id="signupForm">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="email" id="email" placeholder="Email Address" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <div class="link">
+      Already have an account? <a href="LOGIN.HTML">Login</a>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("signupForm");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const pass = document.getElementById("password").value;
+      const confirm = document.getElementById("confirmPassword").value;
+
+      if (pass !== confirm) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      alert("Sign-Up successful! (Demo only)");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CivicConnect | Report Civic Issues</title>
+
+  <style>
+    /* -------- Reset and Base -------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", Arial, sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* -------- Navbar -------- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 80px;
+      background: #ffffff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #00796b;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      position: relative;
+    }
+
+    nav li {
+      position: relative;
+    }
+
+    nav a {
+      font-weight: 500;
+      color: #333;
+      transition: color 0.3s;
+      display: inline-block;
+      padding: 8px 0;
+    }
+
+    nav a:hover {
+      color: #00796b;
+    }
+
+    .login-btn {
+      background: #00796b;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    .login-btn:hover {
+      background: #005a4f;
+    }
+
+    /* -------- Dropdown -------- */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 6px;
+      flex-direction: column;
+      min-width: 180px;
+      z-index: 1000;
+    }
+
+    .dropdown-content a {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: normal;
+      transition: 0.3s;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #00796b;
+      color: white;
+    }
+
+    /* This keeps dropdown visible while hovering inside it */
+    nav li:hover > .dropdown-content,
+    .dropdown-content:hover {
+      display: flex;
+    }
+
+    /* -------- Hero Section -------- */
+    .hero {
+      background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),
+        url("https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1950&q=80")
+        center/cover no-repeat;
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .hero-content {
+      max-width: 550px;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 700;
+      color: #004d40;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 17px;
+      margin-bottom: 30px;
+    }
+
+    .hero button {
+      background: #00796b;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    .hero button:hover {
+      background: #005a4f;
+    }
+
+    /* -------- Features Section -------- */
+    .features {
+      background: #f9fafb;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 80px 40px;
+      gap: 20px;
+    }
+
+    .feature-box {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      padding: 40px;
+      flex: 1 1 300px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+      font-size: 40px;
+      color: #00796b;
+      margin-bottom: 15px;
+    }
+
+    .feature-box h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: #004d40;
+    }
+
+    .feature-box p {
+      color: #555;
+      font-size: 15px;
+    }
+
+    /* -------- About Section -------- */
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px;
+      gap: 40px;
+    }
+
+    .about-text {
+      flex: 1 1 400px;
+    }
+
+    .about h2 {
+      font-size: 32px;
+      color: #004d40;
+      margin-bottom: 20px;
+    }
+
+    .about p {
+      color: #555;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .about img {
+      flex: 1 1 350px;
+      max-width: 450px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    /* -------- Footer -------- */
+    footer {
+      background: #00796b;
+      color: white;
+      padding: 25px 80px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    footer .links a {
+      color: white;
+      margin-left: 20px;
+      transition: opacity 0.3s;
+    }
+
+    footer .links a:hover {
+      opacity: 0.8;
+    }
+
+    /* -------- Responsive -------- */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 20px 40px;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        height: auto;
+        padding: 60px 40px;
+      }
+
+      .about {
+        flex-direction: column;
+        padding: 60px 40px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <header>
+    <div class="logo">CivicConnect</div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="">Report Issue</a></li>
+        
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li>
+          <a href="#">Login ▾</a>
+          <div class="dropdown-content">
+            <a href="APPLICANT.HTML">Applicant Login</a>
+            <a href="ADMINISTRATOR.HTML">Administrator Login</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <a href="#LOGIN.HTML" class="login-btn">Login</a>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Together, We Make Our City Better.</h1>
+      <p>
+        CivicConnect helps citizens report civic problems like road damage,
+        broken streetlights, or waste issues — quickly and easily.
+      </p>
+      <button onclick="scrollToReport()">Report an Issue</button>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="report">
+    <div class="feature-box">
+      <div class="feature-icon">🚛</div>
+      <h3>Clean Streets</h3>
+      <p>Report waste collection or garbage disposal issues.</p>
+    </div>
+
+    <div class="feature-box">
+      <div class="feature-icon">💡</div>
+      <h3>Lighting & Safety</h3>
+      <p>Notify about broken streetlights or unsafe areas.</p>
+    </div>
+
+    <div class="feature-box">
+      <div class="feature-icon">🚧</div>
+      <h3>Infrastructure</h3>
+      <p>Share road damage or water supply concerns.</p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about">
+    <div class="about-text">
+      <h2>About</h2>
+      <p>We believe every voice matters. CivicConnect empowers residents to take part in civic improvement.</p>
+      <p>Each report you make helps authorities take faster action.</p>
+    </div>
+    <img src="road.jpg" alt="Team working">
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div>&copy; 2025 CivicConnect. All rights reserved.</div>
+    <div class="links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    function scrollToReport() {
+      document.getElementById("report").scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>

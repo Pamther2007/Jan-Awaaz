@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f9fdfc;
+      margin: 0;
+    }
+
+    header {
+      background-color: #00796b;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    table {
+      width: 90%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    th {
+      background-color: #00796b;
+      color: white;
+    }
+
+    .status.pending { color: orange; }
+    .status.in-progress { color: royalblue; }
+    .status.resolved { color: green; }
+
+    select {
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #004d40;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #00695c; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Admin Dashboard</h2>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <main>
+    <h3 style="text-align:center; color:#00796b;">All Submitted Reports</h3>
+    <table id="adminReportTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Applicant</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script>
+    const BASE_URL = "http://localhost:8080/api/reports";
+
+    async function loadAdminReports() {
+      try {
+        const response = await fetch(BASE_URL);
+        if (!response.ok) throw new Error("Failed to fetch reports");
+        const reports = await response.json();
+
+        const tbody = document.querySelector("#adminReportTable tbody");
+        tbody.innerHTML = "";
+
+        reports.forEach(r => {
+          const statusClass = r.status.toLowerCase().replace(" ", "-");
+          const row = `
+            <tr>
+              <td>${r.id}</td>
+              <td>${r.applicantName}</td>
+              <td>${r.category}</td>
+              <td>${r.description}</td>
+              <td class="status ${statusClass}">${r.status}</td>
+              <td>
+                <select onchange="updateStatus(${r.id}, this.value)">
+                  <option value="Pending" ${r.status === "Pending" ? "selected" : ""}>Pending</option>
+                  <option value="In Progress" ${r.status === "In Progress" ? "selected" : ""}>In Progress</option>
+                  <option value="Resolved" ${r.status === "Resolved" ? "selected" : ""}>Resolved</option>
+                </select>
+              </td>
+            </tr>`;
+          tbody.innerHTML += row;
+        });
+      } catch (err) {
+        console.error("Error:", err);
+      }
+    }
+
+    async function updateStatus(id, newStatus) {
+      try {
+        const response = await fetch(`${BASE_URL}/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: newStatus })
+        });
+
+        if (response.ok) {
+          alert("Status updated successfully!");
+          loadAdminReports();
+        } else {
+          alert("Failed to update status");
+        }
+      } catch (err) {
+        console.error("Error:", err);
+      }
+    }
+
+    function logout() {
+      window.location.href = "index.html";
+    }
+
+    loadAdminReports();
+  </script>
+</body>
+</html>
